@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EVS 3000L</title>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Load Esri Leaflet package from CDN -->
+    <script src="https://unpkg.com/esri-leaflet"></script>
+
+<!---------------------------------------------------------------------------------------------->    
+
+<style>
+
+</style>
+
+<!---------------------------------------------------------------------------------------------->  
+
+</head>
+<body>
+   <!-- Map Container -->
+<div id="mapid"></div>
+</div>
+
+
+<!---------------------------------------------------------------------------------------------->  
+
+<script>
+
+        
+var mymap = L.map('mapid').setView([29.7993, -82.7728], 8.8);
+
+var earth = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+});
+
+var gray = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, © CARTO',
+maxZoom: 19,
+});
+
+var darkGrey = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, © CARTO',
+    maxZoom: 19,
+});
+earth.addTo(mymap); // add the light layer to the map
+
+var baseMaps = {
+    "Earth": earth,
+    "Gray": gray,
+    "Dark": darkGrey
+};
+
+L.control.layers(baseMaps).addTo(mymap);
+
+
+var featureLayer3 = L.esri.featureLayer({
+        url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Florida_County_Lines/FeatureServer/0',
+        where: "NAME = 'Alachua' OR NAME = 'St. Johns' or NAME = 'Duval' or NAME = 'Levy'"  
+        
+        //where: "NAME = 'Alachua'" filters the features to only include the feature with the field name "Alachua". You can replace "NAME" with the actual field name if it's different.
+}).addTo(mymap);
+
+</script>
+</body>
+</html>
