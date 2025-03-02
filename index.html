@@ -34,15 +34,15 @@
             attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        var darkGrey = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: 'Map data © OpenStreetMap contributors, © CARTO',
+        var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri, Earthstar Geographics',
             maxZoom: 19
         });
 
         // Layer Control
         var baseMaps = {
             "Earth": earth,
-            "Dark": darkGrey
+            "Satellite": satellite
         };
 
         L.control.layers(baseMaps).addTo(mymap);
